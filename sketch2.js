@@ -23,14 +23,24 @@ function draw() {
   if(eventX > player_sprite.position.x - 10) {
     player_sprite.velocity.x=2;
   }
-  if(eventX < player_sprite.position.x + 10) {
+  else if(eventX < player_sprite.position.x + 10) {
     player_sprite.velocity.x=-2;
+  }
+  else {
+    player_sprite.changeAnimation('stand');
+    //if close to the mouse, don't move
+    player_sprite.velocity.x = 0;
   }
   if(eventY < player_sprite.position.y + 10) {
     player_sprite.velocity.y=-2;
   }
-  if(eventY > player_sprite.position.y + 10) {
+  else if(eventY > player_sprite.position.y + 10) {
     player_sprite.velocity.y=+2;
+  }
+  else {
+    player_sprite.changeAnimation('stand');
+    //if close to the mouse, don't move
+    player_sprite.velocity.x = 0;
   }
 
 //if player go outside
