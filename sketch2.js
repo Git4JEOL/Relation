@@ -13,9 +13,11 @@ function draw() {
   clear();
   background(0);
 
+  var eventY;
   var eventX;
   if(mouse_moved==true){
     eventX = mouseX;
+    eventY = mouseY;
     }
 
   if(eventX > player_sprite.position.x - 10) {
@@ -23,6 +25,12 @@ function draw() {
   }
   if(eventX < player_sprite.position.x + 10) {
     player_sprite.velocity.x=-2;
+  }
+  if(eventY < player_sprite.position.y + 10) {
+    player_sprite.velocity.y=-2;
+  }
+  if(eventY > player_sprite.position.y + 10) {
+    player_sprite.velocity.y=+2;
   }
 
 //if player go outside
