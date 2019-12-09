@@ -20,7 +20,10 @@ function setup(){
  }
 
   player_sprite= createSprite(100,284,10,10)
-
+    player_sprite.shapeColor = color(255);
+    player_sprite.rotateToDirection = true;
+    player_sprite.maxSpeed = 2;
+    player_sprite.friction = 0.03;
 
 
   frameRate(60);
@@ -36,26 +39,11 @@ function draw() {
     eventY = mouseY;
     }
 
-  if(eventX > player_sprite.position.x - 10) {
-    player_sprite.velocity.x=2;
-  }
-  else if(eventX < player_sprite.position.x + 10) {
-    player_sprite.velocity.x=-2;
-  }
-  else {
-    //if close to the mouse, don't move
-    player_sprite.velocity.x = 0;
-  }
-  if(eventY < player_sprite.position.y + 10) {
-    player_sprite.velocity.y=-2;
-  }
-  else if(eventY > player_sprite.position.y + 10) {
-    player_sprite.velocity.y=+2;
-  }
-  else {
-    //if close to the mouse, don't move
-    player_sprite.velocity.x = 0;
-  }
+    if (mouseIsPressed) {
+      player_sprite.attractionPoint(1, mouseX, mouseY);
+    }
+    print(player_sprite.velocity.x);
+
 
 //if player go outside
 
