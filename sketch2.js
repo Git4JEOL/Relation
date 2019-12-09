@@ -5,11 +5,13 @@ var player_sprite;
 var fellow;
 var fellowNum=0;
 var fellow_sprite;
+var fell;
+var f=0;
 var objects;
 var object_sprite;
 var objectX;
 var objectY;
-var Stage=1;
+var stage=1;
 var mouse_moved;
 var mouse_clicked=false;
 var timer;
@@ -17,6 +19,7 @@ var timer;
 
 function setup(){
   objects=new Group(mate);
+  fellow=new Group(fell);
   createCanvas(500,500);
  for (var i = 0; i < 10; i++){
    var mate =object_sprite=createSprite(random(10,490),random(10,490),10,10)
@@ -35,12 +38,13 @@ function setup(){
 }
 function draw() {
   clear();
+  function one(){
   background(0);
 
   player_sprite.overlap(objects,collect);
 
   if(objects.length<10){
-    var mate =object_sprite=createSprite(random(10,490),random(10,490),10,10);
+    mate =object_sprite=createSprite(random(10,490),random(10,490),10,10);
     object_sprite.attractionPoint(1, random(10,490), random(10,490));
     object_sprite.friction = 0.02;
     objects.add(mate);
@@ -48,28 +52,53 @@ function draw() {
 
   //if player eat object, make new object
 
-    if (mouseIsPressed) {
-      player_sprite.attractionPoint(1, mouseX, mouseY);
-    }
-    print(objects.length);
 
-    if(player_sprite.position.x>500 || player_sprite.position.x<0){
-      player_sprite.velocity.x*=-1;
-    }
-    if(player_sprite.position.y>500 || player_sprite.position.y<0){
-      player_sprite.velocity.y*=-1;
-    }
-    //if player go outside
 
-    //timer system
     time();
-    if(timer==0){
-      Stage=2;
+  }//stage one
+
+  function two(){
+    print(fellowNum);
+    background(30);
+    for (var i = objects.length; i--; objects[i].remove());
+    if(f<fellowNum){
+      fell=fellow_sprite=createSprite(player_sprite.position.x,player_sprite.position.y,10,10);
+
+      f++;
     }
+    for (var i = fellowNum; i--; fellow[i].attractionPoint(0.3,player_sprite.position.x-10,player_sprite.position.y-10));
+
+    fellow_sprite.friction=0.09;
+  }//stage two
+
+  if (stage == 1) {
+    one();
+   } else if (stage == 2) {
+     two(); }
+  if(timer==0){
+    stage=2;
+    timer=5;
+  }
+  control()
   drawSprites();
 }
 
-function time(){
+function control(){
+  if (mouseIsPressed) {
+    player_sprite.attractionPoint(1, mouseX, mouseY);
+  }
+  print(objects.length);
+
+  if(player_sprite.position.x>500 || player_sprite.position.x<0){
+    player_sprite.velocity.x*=-1;
+  }
+  if(player_sprite.position.y>500 || player_sprite.position.y<0){
+    player_sprite.velocity.y*=-1;
+  }
+  //if player go outside
+}
+
+function time(){ //timer system
   fill(255);
   textSize(40);
   text(fellowNum,200,450);
