@@ -10,6 +10,7 @@ var objectX;
 var objectY;
 var mouse_moved;
 var mouse_clicked=false;
+var timer;
 
 function setup(){
   objects=new Group(mate);
@@ -25,6 +26,7 @@ function setup(){
     player_sprite.rotateToDirection = true;
     player_sprite.maxSpeed = 2;
     player_sprite.friction = 0.03;
+    //player control setting;
 
   frameRate(60);
 }
@@ -32,20 +34,27 @@ function draw() {
   clear();
   background(0);
   player_sprite.overlap(objects,collect)
-  var eventY;
-  var eventX;
-  if(mouse_moved==true){
-    eventX = mouseX;
-    eventY = mouseY;
-    }
 
     if (mouseIsPressed) {
       player_sprite.attractionPoint(1, mouseX, mouseY);
     }
-    print(player_sprite.velocity.x);
+    print(objects.length);
 
+    if(player_sprite.position.x>500 || player_sprite.position.x<0){
+      player_sprite.velocity.x*=-1;
+    }
+    if(player_sprite.position.y>500 || player_sprite.position.y<0){
+      player_sprite.velocity.y*=-1;
+    }
+    //if player go outside
+    if(objects.length<10){
+      var mate =object_sprite=createSprite(random(10,490),random(10,490),10,10)
+      object_sprite.attractionPoint(1, random(10,490), random(10,490));
+      object_sprite.friction = 0.02;
+       objects.add(mate);
 
-//if player go outside
+    }
+    //if player eat object, make new object
 
   drawSprites();
 }
