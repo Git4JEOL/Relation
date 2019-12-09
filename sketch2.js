@@ -5,7 +5,7 @@ var player_sprite;
 var fellow;
 var fellowNum=0;
 var fellow_sprite;
-var fell;
+var fellows;
 var f=0;
 var objects;
 var object_sprite;
@@ -19,7 +19,7 @@ var timer;
 
 function setup(){
   objects=new Group(mate);
-  fellow=new Group(fell);
+  fellows=new Group(fellow);
   createCanvas(500,500);
  for (var i = 0; i < 10; i++){
    var mate =object_sprite=createSprite(random(10,490),random(10,490),10,10)
@@ -62,13 +62,15 @@ function draw() {
     background(30);
     for (var i = objects.length; i--; objects[i].remove());
     if(f<fellowNum){
-      fell=fellow_sprite=createSprite(player_sprite.position.x,player_sprite.position.y,10,10);
-
+      fellow=fellow_sprite=createSprite(player_sprite.position.x,player_sprite.position.y,10,10);
+      fellows.add(fellow);
+      fellow_sprite.friction=0.09;
       f++;
     }
-    for (var i = fellowNum; i--; fellow[i].attractionPoint(0.3,player_sprite.position.x-10,player_sprite.position.y-10));
+    for (var i =0; i<fellowNum; i++){
+      fellows[i].attractionPoint(0.2, mouseX, mouseY);
+    }
 
-    fellow_sprite.friction=0.09;
   }//stage two
 
   if (stage == 1) {
