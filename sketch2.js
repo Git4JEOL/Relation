@@ -3,6 +3,7 @@ var player_walk;
 var player_stand;
 var player_sprite;
 var fellow;
+var fellowNum
 var fellow_sprite;
 var objects;
 var object_sprite;
@@ -12,16 +13,17 @@ var mouse_moved;
 var mouse_clicked=false;
 var timer;
 
+
 function setup(){
   objects=new Group(mate);
   createCanvas(500,500);
  for (var i = 0; i < 10; i++){
    var mate =object_sprite=createSprite(random(10,490),random(10,490),10,10)
     objects.add(mate);
+    timer=30;
  }
 
   player_sprite= createSprite(100,284,10,10)
-
     player_sprite.shapeColor = color(255);
     player_sprite.rotateToDirection = true;
     player_sprite.maxSpeed = 2;
@@ -33,7 +35,15 @@ function setup(){
 function draw() {
   clear();
   background(0);
-  player_sprite.overlap(objects,collect)
+
+  player_sprite.overlap(objects,collect);
+  if(objects.length<10){
+    var mate =object_sprite=createSprite(random(10,490),random(10,490),10,10);
+    object_sprite.attractionPoint(1, random(10,490), random(10,490));
+    object_sprite.friction = 0.02;
+    objects.add(mate);
+  }
+  //if player eat object, make new object
 
     if (mouseIsPressed) {
       player_sprite.attractionPoint(1, mouseX, mouseY);
@@ -47,15 +57,14 @@ function draw() {
       player_sprite.velocity.y*=-1;
     }
     //if player go outside
-    if(objects.length<10){
-      var mate =object_sprite=createSprite(random(10,490),random(10,490),10,10)
-      object_sprite.attractionPoint(1, random(10,490), random(10,490));
-      object_sprite.friction = 0.02;
-       objects.add(mate);
-
+    fill(255);
+    textSize(40);
+    text(timer,200,470);
+    if(frameCount==60 && timer>0){
+      timer--;
+      frameCount=0;
     }
-    //if player eat object, make new object
-
+    //timer system
   drawSprites();
 }
 
@@ -65,4 +74,8 @@ function mouseMoved(){
 function collect(collector,collected){
   collected.remove();
   print("1");
+}
+function Stage2(){
+  objects.remove();
+
 }
