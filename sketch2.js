@@ -3,12 +3,13 @@ var player_walk;
 var player_stand;
 var player_sprite;
 var fellow;
-var fellowNum
+var fellowNum=0;
 var fellow_sprite;
 var objects;
 var object_sprite;
 var objectX;
 var objectY;
+var Stage=1;
 var mouse_moved;
 var mouse_clicked=false;
 var timer;
@@ -20,7 +21,7 @@ function setup(){
  for (var i = 0; i < 10; i++){
    var mate =object_sprite=createSprite(random(10,490),random(10,490),10,10)
     objects.add(mate);
-    timer=30;
+    timer=5;
  }
 
   player_sprite= createSprite(100,284,10,10)
@@ -37,12 +38,14 @@ function draw() {
   background(0);
 
   player_sprite.overlap(objects,collect);
+
   if(objects.length<10){
     var mate =object_sprite=createSprite(random(10,490),random(10,490),10,10);
     object_sprite.attractionPoint(1, random(10,490), random(10,490));
     object_sprite.friction = 0.02;
     objects.add(mate);
   }
+
   //if player eat object, make new object
 
     if (mouseIsPressed) {
@@ -57,25 +60,30 @@ function draw() {
       player_sprite.velocity.y*=-1;
     }
     //if player go outside
-    fill(255);
-    textSize(40);
-    text(timer,200,470);
-    if(frameCount==60 && timer>0){
-      timer--;
-      frameCount=0;
-    }
+
     //timer system
+    time();
+    if(timer==0){
+      Stage=2;
+    }
   drawSprites();
 }
 
+function time(){
+  fill(255);
+  textSize(40);
+  text(fellowNum,200,450);
+  text(timer,200,470);
+  if(frameCount==60 && timer>0){
+    timer--;
+    frameCount=0;
+  }
+}
 function mouseMoved(){
     mouse_moved = true;
 }
 function collect(collector,collected){
   collected.remove();
+  fellowNum++;
   print("1");
-}
-function Stage2(){
-  objects.remove();
-
 }
