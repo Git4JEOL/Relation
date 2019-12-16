@@ -61,13 +61,14 @@ function draw() {
     print(fellowNum);
     background(30);
     for (var i = objects.length; i--; objects[i].remove());
+
   }//stage two
 
   if (stage == 1) {
     one();
    } else if (stage == 2) {
      two(); }
-  if(timer==0){
+  if(stage==1 && timer==0){
     stage=2;
     timer=5;
   }
