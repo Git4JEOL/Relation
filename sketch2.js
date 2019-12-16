@@ -61,16 +61,6 @@ function draw() {
     print(fellowNum);
     background(30);
     for (var i = objects.length; i--; objects[i].remove());
-    if(f<fellowNum){
-      fellow=fellow_sprite=createSprite(player_sprite.position.x,player_sprite.position.y,10,10);
-      fellows.add(fellow);
-      fellow_sprite.friction=0.09;
-      f++;
-    }
-    for (var i =0; i<fellowNum; i++){
-      fellows[i].attractionPoint(0.2, mouseX, mouseY);
-    }
-
   }//stage two
 
   if (stage == 1) {
@@ -109,9 +99,6 @@ function time(){ //timer system
     timer--;
     frameCount=0;
   }
-}
-function mouseMoved(){
-    mouse_moved = true;
 }
 function collect(collector,collected){
   collected.remove();
