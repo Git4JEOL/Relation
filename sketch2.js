@@ -21,6 +21,7 @@ var goalNum=0;
 let canvas;
 let canvasWidth = 400;
 let canvasHeight = 400;
+var player_pos_reset=0;
 
 function setup(){
    canvas = createCanvas(canvasWidth, canvasHeight);
@@ -30,7 +31,7 @@ function setup(){
  for (var i = 0; i < 10; i++){
    var mate =object_sprite=createSprite(random(10,400),random(10,400),10,10)
     objects.add(mate);
-    timer=5;
+    timer=10  ;
  }
 
   player_sprite= createSprite(100,284,10,10)
@@ -46,54 +47,77 @@ function draw() {
   clear();
   function one(){
   background(0);
-
+  fill(255);
+  textSize(20);
+  text("안녕하세요.반가워요.",120,300);
   player_sprite.overlap(objects,collect);
 
-  if(objects.length<10){
+/*  if(objects.length<10){
     mate =object_sprite=createSprite(random(10,400),random(10,400),10,10);
     object_sprite.attractionPoint(1, random(10,400), random(10,400));
     object_sprite.friction = 0.02;
     objects.add(mate);
-  }
+  }*/
   //if player eat object, make new
     time();
   }//stage one
 
   function two(){
+    frameCount==0;
     print(fellowNum);
     background(10);
     for (var i = objects.length; i--; objects[i].remove());
     fill(125);
-    textSize(40);
-    text("목표를 모으세요.",180,300);
+    textSize(20);
+    text("다들 어디로 가는거야.",120,300);
+    if(frameCount==60&&fellowNum!=0){
+      fellowNum--;
+      frameCount=0;
+    }
     time();
     if(goalNum<4){
-    goals=createSprite(random(10,490),random(10,490),10,10);
-    goalNum++;
+    var mate =object_sprite=createSprite(random(10,400),random(10,400),10,10)
   }
-  player_sprite.overlap(goals,collect);
+     objects.add(mate);
+  player_sprite.overlap(objects,collect);
   }//stage two
 
   function three(){
     print(fellowNum);
     background(30);
+    fill(210);
+    textSize(20);
+    text("안녕하세요",150,300);
     if(objects.length<20){
-      mate =object_sprite=createSprite(random(10,490),random(10,490),10,10);
+      mate=object_sprite=createSprite(random(10,490),random(10,490),10,10);
       object_sprite.attractionPoint(1, random(10,490), random(10,490));
       object_sprite.friction = 0.02;
       objects.add(mate);
     }
+    player_sprite.overlap(objects,collect);
     time()
     fill(125);
 
   }//stage three
-
+  function four(){
+  if(player_pos_reset<1){
+    player_sprite.position.x=100;
+    player_sprite.position.y=10;
+    player_pos_reset++;
+  }
+    background(20);
+    fill(200);
+    rect(100,0,200,400);
+    for (var i = objects.length; i--; objects[i].remove());
+  }
   if (stage == 1) {
     one();
    } else if (stage == 2) {
      two(); }
      else if (stage == 3) {
        three(); }
+       else if (stage == 4) {
+         four(); }
   if(stage==1 && timer==0){
     stage=2;
     timer=5;
@@ -101,6 +125,10 @@ function draw() {
   if(stage==2 && timer==0){
     stage=3;
     timer=5;
+  }
+  if(stage==3 && timer==0){
+    stage=4;
+    timer=10;
   }
   control()
   drawSprites();
