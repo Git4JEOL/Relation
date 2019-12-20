@@ -75,10 +75,11 @@ function draw() {
       frameCount=0;
     }
     time();
-    if(goalNum<4){
+    if(goalNum<fellowNum){
     var mate =object_sprite=createSprite(random(10,400),random(10,400),10,10)
+    objects.add(mate);
   }
-     objects.add(mate);
+
   player_sprite.overlap(objects,collect);
   }//stage two
 
@@ -92,8 +93,8 @@ function draw() {
       mate=object_sprite=createSprite(random(10,490),random(10,490),10,10);
       object_sprite.attractionPoint(1, random(10,490), random(10,490));
       object_sprite.friction = 0.02;
-      objects.add(mate);
     }
+    objects.add(mate);
     player_sprite.overlap(objects,collect);
     time()
     fill(125);
@@ -101,7 +102,7 @@ function draw() {
   }//stage three
   function four(){
   if(player_pos_reset<1){
-    player_sprite.position.x=100;
+    player_sprite.position.x=200;
     player_sprite.position.y=10;
     player_pos_reset++;
   }
@@ -124,7 +125,7 @@ function draw() {
   }
   if(stage==2 && timer==0){
     stage=3;
-    timer=5;
+    timer=10;
   }
   if(stage==3 && timer==0){
     stage=4;
