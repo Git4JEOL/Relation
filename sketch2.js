@@ -210,11 +210,11 @@ function draw() {
       text(fellowNum,200,350);
       if(frameCount==20){
         i+=20
-        fellowNum++;
         print(i);
     }
     if(i>150){
       fill(0);
+      fellowNum=6;
       text("thx for play",200,250);
 
     }
