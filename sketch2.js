@@ -27,12 +27,12 @@ var col1;
 function setup(){
    canvas = createCanvas(canvasWidth, canvasHeight);
    canvas.position(windowWidth/2 - canvasWidth, 0);
-  objects=new Group(mate);
-  fellows=new Group(fellow);
+   objects=new Group();
+   fellows=new Group(fellow);
  for (var i = 0; i < 10; i++){
-   var mate =object_sprite=createSprite(random(10,400),random(10,400),10,10)
+   var mate =createSprite(random(10,400),random(10,400),10,10)
     objects.add(mate);
-    timer=10  ;
+    timer=20  ;
  }
 
   player_sprite= createSprite(100,284,10,10)
@@ -44,7 +44,11 @@ function setup(){
 
   frameRate(60);
 }
+
 function draw() {
+
+  player_sprite.overlap(objects,collect);
+  //eat object
   clear();
 
   function one(){
@@ -52,16 +56,12 @@ function draw() {
     fill(255);
     textSize(20);
     text("안녕하세요.반가워요.",120,300);
-    player_sprite.overlap(objects,collect);
-
-    if(objects.length<10){
-    var mate =object_sprite=createSprite(random(10,400),random(10,400),10,10);
-    //object_sprite.attractionPoint(1, random(10,400), random(10,400
-    objects.add(mate);
-  }
+  //player_sprite.overlap(objects,collect);
   //if player eat object, make new
     time();
   }//stage one
+
+
 
   function two(){
     frameCount==0;
@@ -81,27 +81,22 @@ function draw() {
     objects.add(mate);
   }
 
-  player_sprite.overlap(objects,collect);
+
+  //player_sprite.overlap(objects,collect);
   }//stage two
 
   function three(){
-    print(fellowNum);
     background(30);
     fill(210);
     textSize(20);
     text("또다시 반가워요",150,300);
-    if(objects.length<10){
-      var mate=object_sprite=createSprite(random(10,490),random(10,490),10,10);
-      //object_sprite.attractionPoint(1, random(10,490), random(10,490));
-      //object_sprite.friction = 0.02;
-      objects.add(mate);
-    }
-
-    player_sprite.overlap(objects,collect);
+    //player_sprite.overlap(objects,collect);
     time()
     fill(125);
 
   }//stage three
+
+
 
   function four(){//need collision interaction
   if(player_pos_reset<1){ //reset position only once
@@ -113,9 +108,9 @@ function draw() {
     fill(200);
     rect(100,0,200,400);
     for (var i = objects.length; i--; objects[i].remove());
-
   }
 //stage four
+
 
   if (stage == 1) {
     one();
@@ -145,7 +140,7 @@ function control(){
   if (mouseIsPressed) {
     player_sprite.attractionPoint(1, mouseX, mouseY);
   }
-  print(objects.length);
+  //print(objects.length);
 
   if(player_sprite.position.x>canvasWidth || player_sprite.position.x<0){
     player_sprite.velocity.x*=-1;
@@ -166,8 +161,18 @@ function time(){ //timer system
     frameCount=0;
   }
 }
-function collect(collector,collected){
-  collected.remove();
+
+function collect(player_sprite,object){
+  //objects.remove(object);
+  object.remove();
   fellowNum++;
   print("1");
+  print("object= "+objects);
+}
+
+function NewSprites(){
+  print("objectsLength= "+objects.length);
+  mate=createSprite(random(10,400),random(10,400),10,10);
+  objects.add(mate);
+
 }
