@@ -26,8 +26,7 @@ var col1;
 
 function setup(){
    canvas = createCanvas(canvasWidth, canvasHeight);
-   canvas.position(windowWidth- canvasWidth*3, 20);
-
+   canvas.position(windowWidth/2 - canvasWidth, 0);
   objects=new Group(mate);
   fellows=new Group(fellow);
  for (var i = 0; i < 10; i++){
@@ -47,6 +46,7 @@ function setup(){
 }
 function draw() {
   clear();
+
   function one(){
     background(0);
     fill(255);
@@ -54,12 +54,11 @@ function draw() {
     text("안녕하세요.반가워요.",120,300);
     player_sprite.overlap(objects,collect);
 
-/*  if(objects.length<10){
-    mate =object_sprite=createSprite(random(10,400),random(10,400),10,10);
-    object_sprite.attractionPoint(1, random(10,400), random(10,400));
-    object_sprite.friction = 0.02;
+    if(objects.length<10){
+    var mate =object_sprite=createSprite(random(10,400),random(10,400),10,10);
+    //object_sprite.attractionPoint(1, random(10,400), random(10,400
     objects.add(mate);
-  }*/
+  }
   //if player eat object, make new
     time();
   }//stage one
@@ -97,6 +96,7 @@ function draw() {
       //object_sprite.friction = 0.02;
       objects.add(mate);
     }
+
     player_sprite.overlap(objects,collect);
     time()
     fill(125);
@@ -135,7 +135,7 @@ function draw() {
   }
   if(stage==3 && timer==0){
     stage=4;
-    timer=10;
+    timer=30;
   }
   control()
   drawSprites();
