@@ -28,7 +28,7 @@ var spr1N=1;
 
 function setup(){
    canvas = createCanvas(canvasWidth, canvasHeight);
-   canvas.position(windowWidth/2 - canvasWidth, 0);
+   canvas.position(windowWidth/2-canvasWidth/2, 20);
    objects=new Group();
    fellows=new Group(fellow);
  for (var i = 0; i < 10; i++){
