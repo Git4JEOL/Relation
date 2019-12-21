@@ -49,7 +49,7 @@ function setup(){
 
     for (var i = 0; i < 10; i++) {//stage 4 obstacles
        var c = createSprite(
-         -100, random(height),
+         -100, random(50,300),
          random(25, 100), random(25, 100));
        c.shapeColor = color(random(200, 255));
        obs.add(c);
@@ -133,7 +133,7 @@ function draw() {
     rect(100,0,200,400);
     fill(0);
     textAlign(CENTER);
-    text("오히려  나에게 짐이되지 않았다면 말야.\n그래서 오히려 내가피했었지",120,300);
+    text("오히려  나에게 짐이되지 않았다면 말야.\n그래서 오히려 내가피했었지",200,300);
 
   if(player_pos_reset<1 || (player_sprite.position.x<100) ||(player_sprite.position.x>300)){ //reset position only once
     player_sprite.position.x=200;
@@ -152,15 +152,16 @@ function draw() {
 
           if(frameCount==60){
             fellowNum-=10;
+            if(fellowNum<=0 && timer!=0){
+            timer--;
+            }
             frameCount=0;
           }
-          if(fellowNum>0){
+          if(fellowNum>=0){
             fill(0);
-            print(fellowNum,120,360);
+            text(fellowNum,200,350);
           }
-
-
-
+          text(timer,200,370);
     spr1.remove();
     for (var i = objects.length; i--; objects[i].remove());
   }
@@ -185,7 +186,7 @@ function draw() {
   }
   if(stage==3 && timer==0){
     stage=4;
-    timer=2;
+    timer=5;
   }
   control()
   drawSprites();
@@ -208,6 +209,9 @@ function control(){
 
 function time(){ //timer system
   fill(255);
+  if(stage==4){
+    fill(0)
+  }
   textSize(10);
   text(fellowNum,200,350);
   text(timer,200,390);
