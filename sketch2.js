@@ -23,6 +23,8 @@ let canvasWidth = 400;
 let canvasHeight = 400;
 var player_pos_reset=0;
 var col1;
+var spr1;
+var spr1N=1;
 
 function setup(){
    canvas = createCanvas(canvasWidth, canvasHeight);
@@ -32,7 +34,7 @@ function setup(){
  for (var i = 0; i < 10; i++){
    var mate =createSprite(random(10,400),random(10,400),10,10)
     objects.add(mate);
-    timer=20  ;
+    timer=5 ;
  }
 
   player_sprite= createSprite(100,284,10,10)
@@ -55,7 +57,7 @@ function draw() {
     background(0);
     fill(255);
     textSize(20);
-    text("안녕하세요.반가워요.",120,300);
+    text("힘들게 만나려고 했어.",120,300);
   //player_sprite.overlap(objects,collect);
   //if player eat object, make new
     time();
@@ -70,7 +72,7 @@ function draw() {
     for (var i = objects.length; i--; objects[i].remove());
     fill(125);
     textSize(20);
-    text("다들 어디로 가는거야.",120,300);
+    text("근데 다들 어디로 가는거야.",120,300);
     if(frameCount==60&&fellowNum!=0){
       fellowNum--;
       frameCount=0;
@@ -88,25 +90,44 @@ function draw() {
   function three(){
     background(30);
     fill(210);
-    textSize(20);
-    text("또다시 반가워요",150,300);
+    textSize(10);
+    text("이곳에선 나를 알아줄 사람이 많을것 같아서 좋았어.",150,300);
     //player_sprite.overlap(objects,collect);
     time()
     fill(125);
+    if(spr1N){
+    spr1 = createSprite(
+    width/2, height/2, 150, 150);
+    spr1N=0;
+  }
+    spr1.shapeColor = color(0);
+
+    if (player_sprite.overlap(spr1)) {
+    spr1.shapeColor = color(255);
+    fellowNum++;
+  }
 
   }//stage three
 
 
 
   function four(){//need collision interaction
-  if(player_pos_reset<1){ //reset position only once
+
+    fill(210);
+    textSize(10);
+    text("오히려  나에게 짐이되지 않았다면 말이야.",150,300);
+
+  if(player_pos_reset<1 || (player_sprite.position.x<100) ||(player_sprite.position.x>300)){ //reset position only once
     player_sprite.position.x=200;
     player_sprite.position.y=10;
     player_pos_reset++;
   }
+
+
     background(20);
     fill(200);
     rect(100,0,200,400);
+    spr1.remove();
     for (var i = objects.length; i--; objects[i].remove());
   }
 //stage four
