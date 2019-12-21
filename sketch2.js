@@ -165,14 +165,14 @@ function time(){ //timer system
     frameCount=0;
   }
 }
-function collect(player_sprite,objects){
-  objects.remove();
+function collect(player_sprite,object){
+  objects.remove(object);
   fellowNum++;
   print("1");
 }
 function NewSprites(){
   print("objectsLength= "+objects.length);
   var mate=createSprite(random(10,400),random(10,400),10,10);
-  objects.add(mate);
+  mate.addToGroup(objects);
 
 }
