@@ -125,22 +125,19 @@ function draw() {
 
 
   function four(){//need collision interaction
-
-
     textSize(10);
     background(20);
     fill(200);
     rect(100,0,200,400);
     fill(0);
     textAlign(CENTER);
-    text("오히려  나에게 짐이되지 않았다면 말야.\n그래서 오히려 내가피했었지",200,300);
+    text("반대로 나에게 짐이되지 않았다면 말야.\n그래서 오히려 피했었지",200,300);
 
   if(player_pos_reset<1 || (player_sprite.position.x<100) ||(player_sprite.position.x>300)){ //reset position only once
     player_sprite.position.x=200;
     player_sprite.position.y=10;
     player_pos_reset++;
   }
-
 
     for (var i = 0; i < obs.length; i++) {
       obs[i].position.x += obs[i].width * (fellowNum*0.01);
@@ -161,11 +158,16 @@ function draw() {
             fill(0);
             text(fellowNum,200,350);
           }
-          text(timer,200,370);
+          text(timer,200,380);
+      textSize(20)
+      text("GOAL",200,380);
     spr1.remove();
     for (var i = objects.length; i--; objects[i].remove());
   }
 //stage four
+  function five(){
+    background(0);
+  }
 
 
   if (stage == 1) {
@@ -176,6 +178,8 @@ function draw() {
        three(); }
        else if (stage == 4) {
          four(); }
+         else if (stage == 5) {
+           five(); }
   if(stage==1 && timer==0){
     stage=2;
     timer=2;
@@ -186,6 +190,10 @@ function draw() {
   }
   if(stage==3 && timer==0){
     stage=4;
+    timer=5;
+  }
+  if(stage==4 && timer==0){
+    stage=5;
     timer=5;
   }
   control()
