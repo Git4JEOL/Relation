@@ -190,7 +190,6 @@ function draw() {
   function five(){
     fill(0);
 
-    fellowNum=0;
     background(i);
     player_sprite.attractionPoint(1, 200,200);
     textAlign(CENTER);
@@ -198,6 +197,7 @@ function draw() {
     if(timer>10)
     text("슬펐어.\n힘든일들을 겪었는데도 내 주위엔 아무도 없는 것같았어.",200,220)
     time();
+    fellowNum=0;
     if(timer<10){
       text("그런데말이야..",200,220)
       a.attractionPoint(1, 200,200);
@@ -207,7 +207,8 @@ function draw() {
       rn.attractionPoint(1, 200,200);
       nn.attractionPoint(1, 200,200);
       fill(0);
-      text(fellowNum,200,350);
+      text("6",200,350);
+      text(timer,200,390);
       if(frameCount==20){
         i+=20
         print(i);
