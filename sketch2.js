@@ -30,7 +30,7 @@ function setup(){
    objects=new Group(mate);
    fellows=new Group(fellow);
  for (var i = 0; i < 10; i++){
-   var mate =object_sprite=createSprite(random(10,400),random(10,400),50,50)
+   var mate =createSprite(random(10,400),random(10,400),10,10)
     objects.add(mate);
     timer=10  ;
  }
@@ -44,7 +44,14 @@ function setup(){
 
   frameRate(60);
 }
+
 function draw() {
+
+  player_sprite.overlap(objects,collect);
+  if(objects.length<10){
+    NewSprites();
+  }
+  //eat object
   clear();
 
   function one(){
@@ -52,13 +59,16 @@ function draw() {
     fill(255);
     textSize(20);
     text("안녕하세요.반가워요.",120,300);
+
     if(objects.length<10){
       NewSprites();
   }
-  player_sprite.overlap(objects,collect);
+  //player_sprite.overlap(objects,collect);
   //if player eat object, make new
     time();
   }//stage one
+
+
 
   function two(){
     frameCount==0;
@@ -78,20 +88,17 @@ function draw() {
     objects.add(mate);
   }
 
-  player_sprite.overlap(objects,collect);
+  //player_sprite.overlap(objects,collect);
   }//stage two
 
   function three(){
-
     background(30);
     fill(210);
     textSize(20);
     text("또다시 반가워요",150,300);
-    if(objects.length<10){
-      NewSprites();
-    }
 
-    player_sprite.overlap(objects,collect);
+
+    //player_sprite.overlap(objects,collect);
     time()
     fill(125);
 
@@ -158,8 +165,8 @@ function time(){ //timer system
     frameCount=0;
   }
 }
-function collect(player_sprite,collected){
-  collected.remove();
+function collect(player_sprite,objects){
+  objects.remove();
   fellowNum++;
   print("1");
 }
