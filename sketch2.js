@@ -26,6 +26,14 @@ var col1;
 var spr1;
 var spr1N=1;
 var obs;//obstacles
+var newF;
+var i=0;
+var a;
+var r;
+var n;
+var an;
+var rn;
+var nn;
 
 function setup(){
    canvas = createCanvas(canvasWidth, canvasHeight);
@@ -33,7 +41,7 @@ function setup(){
    objects=new Group();
    fellows=new Group(fellow);
    obs=new Group();
-
+   newF=new Group();
  for (var i = 0; i < 10; i++){
    var mate =createSprite(random(10,400),random(10,400),10,10)
     objects.add(mate);
@@ -55,6 +63,20 @@ function setup(){
        obs.add(c);
        obs.displace(player_sprite);
      }
+
+    //stage 4 obstacles
+        a = createSprite(-100, 0,10, 10);
+          a.friction = 0.03;
+         r = createSprite(-100, 200,10, 10);
+         r.friction = 0.03;
+         n = createSprite(-100, 400,10, 10);
+         n.friction = 0.03;
+         an = createSprite(500, 0,10, 10);
+         an.friction = 0.03;
+        rn = createSprite(500, 200,10, 10);
+          rn.friction = 0.03;
+       nn = createSprite(500, 400,10, 10);
+        nn.friction = 0.03;
 
 
   frameRate(60);
@@ -158,16 +180,43 @@ function draw() {
             fill(0);
             text(fellowNum,200,350);
           }
-          text(timer,200,380);
+          text(timer,200,370);
       textSize(20)
-      text("GOAL",200,380);
+      text("GOAL",200,390);
     spr1.remove();
     for (var i = objects.length; i--; objects[i].remove());
   }
 //stage four
   function five(){
-    background(0);
+    fill(0);
+
+    fellowNum=0;
+    background(i);
+    player_sprite.attractionPoint(1, 200,200);
+    textAlign(CENTER);
+    fill(255);
+    if(timer>10)
+    text("슬펐어.\n힘든일들을 겪었는데도 내 주위엔 아무도 없는 것같았어.",200,220)
+    time();
+    if(timer<10){
+      text("그런데말이야..",200,220)
+      a.attractionPoint(1, 200,200);
+      r.attractionPoint(1, 200,200);
+      n.attractionPoint(1, 200,200);
+      an.attractionPoint(1, 200,200);
+      rn.attractionPoint(1, 200,200);
+      nn.attractionPoint(1, 200,200);
+      if(frameCount==20){
+        i+=20;
+        fellowNum++;
+        print(i);
+    }
+    if(i>150){
+      fill(0);
+      text("thx for play",200,200);
+    }
   }
+}
 
 
   if (stage == 1) {
@@ -194,14 +243,14 @@ function draw() {
   }
   if(stage==4 && timer==0){
     stage=5;
-    timer=5;
+    timer=20;
   }
   control()
   drawSprites();
 }
 
 function control(){
-  if (mouseIsPressed) {
+  if (mouseIsPressed && stage!=5) {
     player_sprite.attractionPoint(1, mouseX, mouseY);
   }
   //print(objects.length);
