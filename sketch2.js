@@ -207,7 +207,6 @@ function draw() {
       rn.attractionPoint(1, 200,200);
       nn.attractionPoint(1, 200,200);
       fill(0);
-      text("6",200,350);
       text(timer,200,390);
       if(frameCount==20){
         i+=20
@@ -216,6 +215,7 @@ function draw() {
     if(i>150){
       fill(0);
       fellowNum=6;
+      text("6",200,350);
       text("thx for play",200,250);
 
     }
@@ -235,11 +235,11 @@ function draw() {
            five(); }
   if(stage==1 && timer==0){
     stage=2;
-    timer=10;
+    timer=5;
   }
   if(stage==2 && timer==0){
     stage=3;
-    timer=5;
+    timer=10;
   }
   if(stage==3 && timer==0){
     stage=4;
