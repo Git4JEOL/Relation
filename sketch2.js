@@ -113,7 +113,7 @@ function draw() {
 
   function four(){//need collision interaction
 
-    fill(210);
+    fill(0);
     textSize(10);
     text("오히려  나에게 짐이되지 않았다면 말이야.",150,300);
 
