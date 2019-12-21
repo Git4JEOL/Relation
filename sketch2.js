@@ -22,10 +22,12 @@ let canvas;
 let canvasWidth = 400;
 let canvasHeight = 400;
 var player_pos_reset=0;
+var col1;
 
 function setup(){
    canvas = createCanvas(canvasWidth, canvasHeight);
-   canvas.position(windowWidth/2 - canvasWidth, 0);
+   canvas.position(windowWidth- canvasWidth*3, 20);
+
   objects=new Group(mate);
   fellows=new Group(fellow);
  for (var i = 0; i < 10; i++){
@@ -46,11 +48,11 @@ function setup(){
 function draw() {
   clear();
   function one(){
-  background(0);
-  fill(255);
-  textSize(20);
-  text("안녕하세요.반가워요.",120,300);
-  player_sprite.overlap(objects,collect);
+    background(0);
+    fill(255);
+    textSize(20);
+    text("안녕하세요.반가워요.",120,300);
+    player_sprite.overlap(objects,collect);
 
 /*  if(objects.length<10){
     mate =object_sprite=createSprite(random(10,400),random(10,400),10,10);
@@ -88,20 +90,21 @@ function draw() {
     background(30);
     fill(210);
     textSize(20);
-    text("안녕하세요",150,300);
-    if(objects.length<20){
-      mate=object_sprite=createSprite(random(10,490),random(10,490),10,10);
-      object_sprite.attractionPoint(1, random(10,490), random(10,490));
-      object_sprite.friction = 0.02;
+    text("또다시 반가워요",150,300);
+    if(objects.length<10){
+      var mate=object_sprite=createSprite(random(10,490),random(10,490),10,10);
+      //object_sprite.attractionPoint(1, random(10,490), random(10,490));
+      //object_sprite.friction = 0.02;
+      objects.add(mate);
     }
-    objects.add(mate);
     player_sprite.overlap(objects,collect);
     time()
     fill(125);
 
   }//stage three
-  function four(){
-  if(player_pos_reset<1){
+
+  function four(){//need collision interaction
+  if(player_pos_reset<1){ //reset position only once
     player_sprite.position.x=200;
     player_sprite.position.y=10;
     player_pos_reset++;
@@ -110,7 +113,10 @@ function draw() {
     fill(200);
     rect(100,0,200,400);
     for (var i = objects.length; i--; objects[i].remove());
+
   }
+//stage four
+
   if (stage == 1) {
     one();
    } else if (stage == 2) {
