@@ -30,7 +30,7 @@ function setup(){
    objects=new Group(mate);
    fellows=new Group(fellow);
  for (var i = 0; i < 10; i++){
-   var mate =object_sprite=createSprite(random(10,400),random(10,400),10,10)
+   var mate =object_sprite=createSprite(random(10,400),random(10,400),50,50)
     objects.add(mate);
     timer=10  ;
  }
@@ -164,6 +164,8 @@ function collect(player_sprite,collected){
   print("1");
 }
 function NewSprites(){
+  print("objectsLength= "+objects.length);
   var mate=createSprite(random(10,400),random(10,400),10,10);
   objects.add(mate);
+
 }
