@@ -45,7 +45,7 @@ function setup(){
  for (var i = 0; i < 10; i++){
    var mate =createSprite(random(10,400),random(10,400),10,10)
     objects.add(mate);
-    timer=5 ;
+    timer=10 ;
  }
 
   player_sprite= createSprite(100,284,10,10)
@@ -107,7 +107,7 @@ function draw() {
     for (var i = objects.length; i--; objects[i].remove());
     fill(125);
     textSize(20);
-    text("근데 다들 어디로 간거야.",120,300);
+    text("근데 다들 어디로 간거야.",100,300);
     if(frameCount==60&&fellowNum!=0){
       fellowNum--;
       frameCount=0;
@@ -126,7 +126,7 @@ function draw() {
     background(30);
     fill(210);
     textSize(10);
-    text("이곳에선 나를 알아줄 사람이 많을것 같아서 좋았어.",150,300);
+    text("이곳에선 나를 알아줄 사람이 많을것 같아서 좋았어.",100,300);
     //player_sprite.overlap(objects,collect);
     time()
     fill(125);
@@ -206,14 +206,17 @@ function draw() {
       an.attractionPoint(1, 200,200);
       rn.attractionPoint(1, 200,200);
       nn.attractionPoint(1, 200,200);
+      fill(0);
+      text(fellowNum,200,350);
       if(frameCount==20){
-        i+=20;
+        i+=20
         fellowNum++;
         print(i);
     }
     if(i>150){
       fill(0);
-      text("thx for play",200,200);
+      text("thx for play",200,250);
+
     }
   }
 }
@@ -231,15 +234,15 @@ function draw() {
            five(); }
   if(stage==1 && timer==0){
     stage=2;
-    timer=2;
+    timer=10;
   }
   if(stage==2 && timer==0){
     stage=3;
-    timer=2;
+    timer=5;
   }
   if(stage==3 && timer==0){
     stage=4;
-    timer=5;
+    timer=10;
   }
   if(stage==4 && timer==0){
     stage=5;
