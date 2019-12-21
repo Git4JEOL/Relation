@@ -25,12 +25,15 @@ var player_pos_reset=0;
 var col1;
 var spr1;
 var spr1N=1;
+var obs;//obstacles
 
 function setup(){
    canvas = createCanvas(canvasWidth, canvasHeight);
    canvas.position(windowWidth/2-canvasWidth/2, 20);
    objects=new Group();
    fellows=new Group(fellow);
+   obs=new Group();
+
  for (var i = 0; i < 10; i++){
    var mate =createSprite(random(10,400),random(10,400),10,10)
     objects.add(mate);
@@ -43,6 +46,16 @@ function setup(){
     player_sprite.maxSpeed = 2;
     player_sprite.friction = 0.03;
     //player control setting;
+
+    for (var i = 0; i < 10; i++) {//stage 4 obstacles
+       var c = createSprite(
+         -100, random(height),
+         random(25, 100), random(25, 100));
+       c.shapeColor = color(random(200, 255));
+       obs.add(c);
+       obs.displace(player_sprite);
+     }
+
 
   frameRate(60);
 }
@@ -72,7 +85,7 @@ function draw() {
     for (var i = objects.length; i--; objects[i].remove());
     fill(125);
     textSize(20);
-    text("근데 다들 어디로 가는거야.",120,300);
+    text("근데 다들 어디로 간거야.",120,300);
     if(frameCount==60&&fellowNum!=0){
       fellowNum--;
       frameCount=0;
@@ -113,9 +126,14 @@ function draw() {
 
   function four(){//need collision interaction
 
-    fill(0);
+
     textSize(10);
-    text("오히려  나에게 짐이되지 않았다면 말이야.",150,300);
+    background(20);
+    fill(200);
+    rect(100,0,200,400);
+    fill(0);
+    textAlign(CENTER);
+    text("오히려  나에게 짐이되지 않았다면 말야.\n그래서 오히려 내가피했었지",120,300);
 
   if(player_pos_reset<1 || (player_sprite.position.x<100) ||(player_sprite.position.x>300)){ //reset position only once
     player_sprite.position.x=200;
@@ -124,9 +142,25 @@ function draw() {
   }
 
 
-    background(20);
-    fill(200);
-    rect(100,0,200,400);
+    for (var i = 0; i < obs.length; i++) {
+      obs[i].position.x += obs[i].width * (fellowNum*0.01);
+        if (obs[i].position.x > width) {
+            obs[i].position.x = 0;
+            }
+          }
+          obs.displace(player_sprite);
+
+          if(frameCount==60){
+            fellowNum-=10;
+            frameCount=0;
+          }
+          if(fellowNum>0){
+            fill(0);
+            print(fellowNum,120,360);
+          }
+
+
+
     spr1.remove();
     for (var i = objects.length; i--; objects[i].remove());
   }
@@ -143,15 +177,15 @@ function draw() {
          four(); }
   if(stage==1 && timer==0){
     stage=2;
-    timer=5;
+    timer=2;
   }
   if(stage==2 && timer==0){
     stage=3;
-    timer=10;
+    timer=2;
   }
   if(stage==3 && timer==0){
     stage=4;
-    timer=30;
+    timer=2;
   }
   control()
   drawSprites();
