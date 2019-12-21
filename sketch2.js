@@ -26,10 +26,9 @@ var col1;
 
 function setup(){
    canvas = createCanvas(canvasWidth, canvasHeight);
-   canvas.position(windowWidth- canvasWidth*3, 20);
-
-  objects=new Group(mate);
-  fellows=new Group(fellow);
+   canvas.position(windowWidth/2 - canvasWidth, 0);
+   objects=new Group(mate);
+   fellows=new Group(fellow);
  for (var i = 0; i < 10; i++){
    var mate =object_sprite=createSprite(random(10,400),random(10,400),10,10)
     objects.add(mate);
@@ -47,19 +46,16 @@ function setup(){
 }
 function draw() {
   clear();
+
   function one(){
     background(0);
     fill(255);
     textSize(20);
     text("안녕하세요.반가워요.",120,300);
-    player_sprite.overlap(objects,collect);
-
-/*  if(objects.length<10){
-    mate =object_sprite=createSprite(random(10,400),random(10,400),10,10);
-    object_sprite.attractionPoint(1, random(10,400), random(10,400));
-    object_sprite.friction = 0.02;
-    objects.add(mate);
-  }*/
+    if(objects.length<10){
+      NewSprites();
+  }
+  player_sprite.overlap(objects,collect);
   //if player eat object, make new
     time();
   }//stage one
@@ -86,17 +82,15 @@ function draw() {
   }//stage two
 
   function three(){
-    print(fellowNum);
+
     background(30);
     fill(210);
     textSize(20);
     text("또다시 반가워요",150,300);
     if(objects.length<10){
-      var mate=object_sprite=createSprite(random(10,490),random(10,490),10,10);
-      //object_sprite.attractionPoint(1, random(10,490), random(10,490));
-      //object_sprite.friction = 0.02;
-      objects.add(mate);
+      NewSprites();
     }
+
     player_sprite.overlap(objects,collect);
     time()
     fill(125);
@@ -113,10 +107,8 @@ function draw() {
     fill(200);
     rect(100,0,200,400);
     for (var i = objects.length; i--; objects[i].remove());
-
   }
 //stage four
-
   if (stage == 1) {
     one();
    } else if (stage == 2) {
@@ -135,7 +127,7 @@ function draw() {
   }
   if(stage==3 && timer==0){
     stage=4;
-    timer=10;
+    timer=30;
   }
   control()
   drawSprites();
@@ -145,7 +137,7 @@ function control(){
   if (mouseIsPressed) {
     player_sprite.attractionPoint(1, mouseX, mouseY);
   }
-  print(objects.length);
+  //print(objects.length);
 
   if(player_sprite.position.x>canvasWidth || player_sprite.position.x<0){
     player_sprite.velocity.x*=-1;
@@ -166,8 +158,12 @@ function time(){ //timer system
     frameCount=0;
   }
 }
-function collect(collector,collected){
+function collect(player_sprite,collected){
   collected.remove();
   fellowNum++;
   print("1");
+}
+function NewSprites(){
+  var mate=createSprite(random(10,400),random(10,400),10,10);
+  objects.add(mate);
 }
